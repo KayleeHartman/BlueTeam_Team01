@@ -51,6 +51,8 @@ enum CardSelectReturnValue {
 	case matchFound
 	case matchNotFound
 	case firstCardDeselected
+	case unselectable
+        case error
 }
 /*
 -return values to be used when a card is selected
@@ -62,6 +64,8 @@ enum CardSelectReturnValue {
 	-selected pair does not match
 -firstCardDeselected will be returned when the first card is selected again
 	-and is thus deselected
+-unselectable will be returned when the card selected has already been matched
+-error will be returned when coordinates that are out of bounds are passed in
 */
 //---------------------------------------------------------------------
 func selectCard(xCoord: Int,yCoord: Int) -> CardSelectReturnValue
