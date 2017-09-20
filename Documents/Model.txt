@@ -1,0 +1,133 @@
+/*
+Creator: Haines Todd (haines.todd@okstate.edu)
+This document describes the interface to the model for this project.
+
+The model will be included in the final project as a standalone .swift 
+file holding one class, Model. An instance of the Model class will be 
+used to keep track of non user interface related variables such as: player
+tries remaining, player score, card locations, and currently selected cards.
+
+A typical usage of the model class will probably look something like this
+
+***As a variable in the main ViewController class***
+let model = Model.init(numCardsWidth: 3, numCardsHeight: 4, numTries 8)
+***
+
+***When the user selects the card on the top right***
+let state = model.selectCard(xCoord: 2, yCoord: 0)
+
+if state == Model.CardSelectReturnValue.firstCardSelected {
+	//flip over this card and wait for user to pick another card
+}
+else if  state == Model.CardSelectReturnValue.matchFound {
+	//the player made a successful match
+}
+else if state == Model.CardSelectReturnValue.matchNotFound {
+	//the player did not make a successful match
+}
+else if state == Model.CardSelectReturnValue.firstCardDeselected {
+	//the player deselected the card they had chosen prior
+}
+***
+
+*/
+
+
+
+//---------------------------------------------------------------------
+init(numCardsWidth: Int, numCardsHeight: Int, numTries: Int)
+
+/*
+Initiates the Model class and sets the random positions of each card
+
+numCardsWidth 	– the number of cards on any given row
+numCardsHeight 	- the number of cards on any given column
+		- numCardsWidth*numCardsHeights gives the total number of cards
+numTries	- The number of matching tries the player will start with
+*/
+//---------------------------------------------------------------------
+enum CardSelectReturnValue {
+	case firstCardSelected
+	case matchFound
+	case matchNotFound
+	case firstCardDeselected
+}
+/*
+-return values to be used when a card is selected
+-firstCardSelected will be returned when the first card out of a
+	-pair is selected
+-matchFound will be returned when the second card is selected and the
+	-selected pair matches
+-matchNotFound will be returned when the second card is selected and the
+	-selected pair does not match
+-firstCardDeselected will be returned when the first card is selected again
+	-and is thus deselected
+*/
+//---------------------------------------------------------------------
+func selectCard(xCoord: Int,yCoord: Int) -> CardSelectReturnValue
+
+/*
+marks a card as selected and returns the updated state of the model
+
+xCoord - the x-coordinate of the card being selected, starting at 0 from the leftmost card
+yCoord - the y-coordinate of the card being selected, starting at 0 from the topmost card
+
+example selecting card X at coordinates (1,2)
+
+o o o o
+
+o o o o
+
+o X o o
+
+o o o o
+*/
+//---------------------------------------------------------------------
+func isDead() -> Bool
+
+/*
+returns true if the player has ran out of tries
+*/
+//---------------------------------------------------------------------
+func getNumMatches() -> Int
+
+/*
+returns the number of matched pairs the player has made
+*/
+//---------------------------------------------------------------------
+func getNumMissedTries() -> Int
+
+/*
+returns the number of unsuccessful matches player has made
+*/
+//---------------------------------------------------------------------
+func getRemainingTries() -> Int
+
+/*
+returns the number of tries the player has left before game over
+*/
+//---------------------------------------------------------------------
+func reset()
+
+/*
+resets the number of tries left to its initial value and randomizes the placement of the cards
+*/
+//---------------------------------------------------------------------
+func getCardMap() -> [[Int]]
+
+/* returns a two-dimensional array that represents the location of each card
+	matching numbers represents pairs of the same card
+	
+Example of a 4 by 4 grid of cards
+
+ 7 2 6 8
+ 
+ 4 3 3 5
+ 
+ 5 8 2 1
+ 
+ 1 4 7 6
+
+1's at (3,2) and (0,3) represent a matching pair of cards
+
+*/
