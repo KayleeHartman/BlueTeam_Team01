@@ -1,2 +1,2 @@
-# Blue Team - Team 01 Assets
-## Image and Audio Files
+# Blue Team - Team 01 Documents
+## Documents pertaining to the Team 01 Project
